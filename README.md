@@ -258,6 +258,8 @@ app.patch("/api/v1/tours/:id", (req, res) => {
 });
 
 ```
+<img width="1440" alt="Screenshot 2023-03-04 at 9 25 43 PM" src="https://user-images.githubusercontent.com/47382260/222915956-5230dd31-867a-458e-b80f-b817fe3ce850.png">
+
 
 ### HANDLING DELETE Request
 
@@ -276,3 +278,4 @@ app.delete("/api/v1/tours/:id", (req, res) => {
 
 
 ```
+<img width="1440" alt="Screenshot 2023-03-04 at 9 25 20 PM" src="https://user-images.githubusercontent.com/47382260/222915939-ab4777a4-be24-4698-8f81-4f6224c37553.png">
