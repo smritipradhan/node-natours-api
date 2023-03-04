@@ -186,6 +186,7 @@ OUTPUT IN Postman
     "status": "success"
 }
 ```
+
 <img width="1440" alt="Screenshot 2023-03-04 at 8 19 50 PM" src="https://user-images.githubusercontent.com/47382260/222910890-4f5c4e5f-75f2-4c6a-aff9-8f08a062f22f.png">
 
 Now we will hit the API and get the data of the Particular id
@@ -234,5 +235,44 @@ OUTPUT IN POSTMAN
 }
 ```
 
-
 ### HANDLING PATCH Requests
+
+There are two methods that are used to update the Data . PUT and PATCH methods. PUT method updates the entire object whereas PATCH method updates only the properties that are needed to change.Here we will send a dummy response .
+
+```
+//HANDLING PATCH Requests for one tour based on the id
+
+app.patch("/api/v1/tours/:id", (req, res) => {
+  //dummy code which wont change the JSON data as the JSON data is static. Will work with the Database in future
+  let { id } = req.params;
+  id = id * 1; //the id is a string so converting it to a number using a simple trick
+
+  if (id < tours.length) {
+    return res.status(200).json({
+      status: "success",
+      data: {
+        tour: `<Here will be the Updated Tour Data>`,
+      },
+    });
+  }
+});
+
+```
+
+### HANDLING DELETE Request
+
+```
+//HANDLING DELETE Requests for one tour based on the id
+app.delete("/api/v1/tours/:id", (req, res) => {
+  let { id } = req.params;
+  id = id * 1; //the id is a string so converting it to a number using a simple trick
+  if (id < tours.length) {
+    return res.status(204).json({
+      status: "success",
+      data: null, //In the Delete method we dont send any data and the status code is 204 which show the data got deleted
+    });
+  }
+});
+
+
+```
