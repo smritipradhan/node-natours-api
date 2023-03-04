@@ -10,7 +10,8 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-const getAllTours = (req, res) => {
+//------------------------------HANDLING GET REQUEST for all tours------------------------------
+app.get("/api/v1/tours", (req, res) => {
   res.status(200).json({
     status: "success",
     results: tours.length,
@@ -18,10 +19,12 @@ const getAllTours = (req, res) => {
       tours: tours,
     },
   });
-};
+});
 
-const createNewTours = (req, res) => {
+//-------------------------HANDLING POST request ------------------------------
+app.post("/api/v1/tours", (req, res) => {
   const newTourId = tours[tours.length - 1].id + 1;
+  console.log(newTourId);
   const newTour = Object.assign({ id: newTourId }, req.body);
   tours.push(newTour);
 
@@ -35,11 +38,13 @@ const createNewTours = (req, res) => {
       });
     }
   );
-};
+});
 
-const getTourById = (req, res) => {
+//HANDLING GET Requests for one tour based on the id
+app.get("/api/v1/tours/:id", (req, res) => {
   let { id } = req.params;
   id = id * 1; //the id is a string so converting it to a number using a simple trick
+  console.log(id);
   const tour = tours.find((element) => element.id === id);
   if (!tour) {
     return res.status(404).json({
@@ -53,20 +58,10 @@ const getTourById = (req, res) => {
       tour: tour,
     },
   });
-};
+});
 
-const deleteTour = (req, res) => {
-  let { id } = req.params;
-  id = id * 1; //the id is a string so converting it to a number using a simple trick
-  if (id < tours.length) {
-    return res.status(204).json({
-      status: "success",
-      data: null, //In the Delete method we dont send any data and the status code is 204 which show the data got deleted
-    });
-  }
-};
-
-const updateTour = (req, res) => {
+//HANDLING PATCH Requests for one tour based on the id
+app.patch("/api/v1/tours/:id", (req, res) => {
   //dummy code which wont change the JSON data as the JSON data is static. Will work with the Database in future
   let { id } = req.params;
   id = id * 1; //the id is a string so converting it to a number using a simple trick
@@ -79,22 +74,21 @@ const updateTour = (req, res) => {
       },
     });
   }
-};
+});
 
-// app.get("/api/v1/tours", getAllTours);
-// app.post("/api/v1/tours", createNewTours);
-// app.get("/api/v1/tours/:id", getTourById);
-// app.delete("/api/v1/tours/:id", deleteTour);
-// app.patch("/api/v1/tours/:id", updateTour);
+//HANDLING DELETE Requests for one tour based on the id
+app.delete("/api/v1/tours/:id", (req, res) => {
+  let { id } = req.params;
+  id = id * 1; //the id is a string so converting it to a number using a simple trick
+  if (id < tours.length) {
+    return res.status(204).json({
+      status: "success",
+      data: null, //In the Delete method we dont send any data and the status code is 204 which show the data got deleted
+    });
+  }
+});
 
-app.route("/api/v1/tours").get(getAllTours).post(createNewTours);
-
-app
-  .route("/api/v1/tours/:id")
-  .get(getTourById)
-  .delete(deleteTour)
-  .patch(updateTour);
-
+//the callback function will be called when the server starts listening.
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
 });
