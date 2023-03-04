@@ -87,6 +87,8 @@ Formatted the data here using JSEND Data Specification .Wrapping the tours data 
 
 We can send the number of tours using tours.length as tours data is array of objects.
 
+<img width="1440" alt="Screenshot 2023-03-04 at 8 20 53 PM" src="https://user-images.githubusercontent.com/47382260/222911119-f2bb63d2-6e9b-4250-8e0d-f15aa4bbf769.png">
+
 ### 4. Handling POST Requests
 
 In the post request we will add new tours information. The data will be sent from the client to the server. All the information about the request will be inside the request . Express does not put the body data on the request so in order to have that dta available we need to use middleware.
@@ -156,7 +158,9 @@ Output in POSTMAN
 
 The JSON file also got modified.
 
-### 5. Responding to URL Parameters
+#<img width="1440" alt="Screenshot 2023-03-04 at 8 20 21 PM" src="https://user-images.githubusercontent.com/47382260/222910993-bd99bd57-2840-4f29-bc75-3b9b90ae96c1.png">
+
+## 5. Responding to URL Parameters
 
 Based on the id we want the tours data corresponding to the id provided in the URL. Here we can access the id in the req.params object.
 
@@ -182,6 +186,7 @@ OUTPUT IN Postman
     "status": "success"
 }
 ```
+<img width="1440" alt="Screenshot 2023-03-04 at 8 19 50 PM" src="https://user-images.githubusercontent.com/47382260/222910890-4f5c4e5f-75f2-4c6a-aff9-8f08a062f22f.png">
 
 Now we will hit the API and get the data of the Particular id
 
@@ -228,5 +233,6 @@ OUTPUT IN POSTMAN
          ..
 }
 ```
+
 
 ### HANDLING PATCH Requests
