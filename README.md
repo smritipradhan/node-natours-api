@@ -399,3 +399,5 @@ const getAllTours = (req, res) => {
   });
 };
 ```
+<img width="1440" alt="Screenshot 2023-03-05 at 11 38 01 AM" src="https://user-images.githubusercontent.com/47382260/222944573-c8b09670-f83a-4c1d-9534-156b5536e87b.png">
+
