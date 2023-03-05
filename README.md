@@ -3,6 +3,8 @@
 1 . We add package.json by writing the command npm init and fill the configuration that we want .
 2 . npm i express to install Express and this will add the node modules to the folder .
 
+app.js
+
 ```
 const express = require("express");
 const app = express();
@@ -18,6 +20,8 @@ app.listen(port, () => {
 ### 1. We create a Route
 
 Routing means basically how an application responds to a certain client request , so to a certain url but also the http method which is used for that URL.
+
+app.js
 
 app.get("/", (req, res) => {
 res.status(200).json({ message: "Hello from the Server!", status: "OK" });
@@ -43,6 +47,8 @@ REST, which stands for Representational States Transfer,is basically a way of bu
 4 . Finally, another important principle of REST APIs is that they must be stateless.
 
 ### 3. Starting our API : Handling GET Requests
+
+app.js
 
 ```
 const express = require("express");
@@ -92,6 +98,8 @@ We can send the number of tours using tours.length as tours data is array of obj
 ### 4. Handling POST Requests
 
 In the post request we will add new tours information. The data will be sent from the client to the server. All the information about the request will be inside the request . Express does not put the body data on the request so in order to have that dta available we need to use middleware.
+
+app.js
 
 ```
 app.use(express.json());
@@ -164,6 +172,8 @@ The JSON file also got modified.
 
 Based on the id we want the tours data corresponding to the id provided in the URL. Here we can access the id in the req.params object.
 
+app.js
+
 ```
 app.get("/api/v1/tours/:id", (req, res) => {
   console.log(req.params);
@@ -190,6 +200,8 @@ OUTPUT IN Postman
 <img width="1440" alt="Screenshot 2023-03-04 at 8 19 50 PM" src="https://user-images.githubusercontent.com/47382260/222910890-4f5c4e5f-75f2-4c6a-aff9-8f08a062f22f.png">
 
 Now we will hit the API and get the data of the Particular id
+
+app.js
 
 ```
 app.get("/api/v1/tours/:id", (req, res) => {
@@ -442,3 +454,26 @@ const deleteUser = (req, res) => {
   });
 };
 ```
+
+### Creating and Mounting Multiple Routes
+
+We will be using a middleware.We difine tourRouter and userRouter and mount a Router on a Route.Basically we mount tourRouter on "/api/v1/tours" .
+
+```
+const tourRouter = express.Router();
+app.use("/api/v1/tours", tourRouter);
+
+const userRouter = express.Router();
+app.use("/api/v1/users", userRouter);
+
+// 3) Tours ROUTES
+tourRouter.route("/").get(getAllTours).post(createNewTours);
+tourRouter.route("/:id").get(getTourById).delete(deleteTour).patch(updateTour);
+
+// 4) User Routes
+userRouter.route("/").get(getAllUsers).post(updateAllUsers);
+userRouter.route("/:id").get(getUser).delete(deleteUser).patch(updateUser);
+
+```
+
+### Better File Stucture
