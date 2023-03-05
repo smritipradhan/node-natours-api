@@ -372,3 +372,30 @@ app
   .patch(updateTour);
 
 ```
+
+### Middlewares
+
+Our req,res object goes through the middlewares.All the middlewares has access to the req,res,next. We need to use next() to call the next middleware otherwise the execution will stuck.The end middleware is the Route handler.We dont call next() instead we send the responside to the client.To write middleware we use app.use() .
+
+```
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+```
+
+The order of the middleware matters a lot because if we write a middleware after a certain route than it wont get executed as the request response cycle for that route has already been ended.
+Here in this code we added a requestTime property to the req object and we can access this property and also send back in the response object.
+
+```
+const getAllTours = (req, res) => {
+  res.status(200).json({
+    status: "success",
+    results: tours.length,
+    requestTime: req.requestTime,
+    data: {
+      tours: tours,
+    },
+  });
+};
+```

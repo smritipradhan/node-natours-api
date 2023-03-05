@@ -1,7 +1,17 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log("Hello from Middleware");
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 const port = 3000;
 
@@ -14,6 +24,7 @@ const getAllTours = (req, res) => {
   res.status(200).json({
     status: "success",
     results: tours.length,
+    requestTime: req.requestTime,
     data: {
       tours: tours,
     },
@@ -22,7 +33,7 @@ const getAllTours = (req, res) => {
 
 const createNewTours = (req, res) => {
   const newTourId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newTourId }, req.body);
+  const newTour = Object.assign({ id: newTourId }, req.body); //middleware
   tours.push(newTour);
 
   fs.writeFile(
