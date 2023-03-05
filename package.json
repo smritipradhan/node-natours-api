@@ -4,7 +4,7 @@
   "description": "Building our first API using Express , Node",
   "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",

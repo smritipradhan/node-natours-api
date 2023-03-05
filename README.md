@@ -477,3 +477,46 @@ userRouter.route("/:id").get(getUser).delete(deleteUser).patch(updateUser);
 ```
 
 ### Better File Stucture
+
+We separated the controllers in a different folder called controllers and in the controllers there are two file which are tourController.js and userControllers.js .
+
+userControllers.js
+
+```
+exports.getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+..
+..
+..
+
+```
+
+userRoutes.js
+
+```
+const {
+  getAllUsers,
+  updateAllUsers,
+  getUser,
+  deleteUser,
+  updateUser,
+} = require("./../controllers/userControllers");
+
+```
+
+server.js
+
+```
+const app = require("./app");
+
+const port = 3000;
+
+app.listen(port, () => {
+  console.log(`listening on port ${port}...`);
+});
+
+```
