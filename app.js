@@ -1,6 +1,9 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+const morgan = require("morgan");
+
+// 1) MIDLEWARES
 
 app.use(express.json());
 app.use((req, res, next) => {
@@ -13,12 +16,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(morgan("dev"));
+
 const port = 3000;
 
 //top level code
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
+
+// 2) ROUTE HANDLERS
 
 const getAllTours = (req, res) => {
   res.status(200).json({
@@ -92,11 +99,42 @@ const updateTour = (req, res) => {
   }
 };
 
-// app.get("/api/v1/tours", getAllTours);
-// app.post("/api/v1/tours", createNewTours);
-// app.get("/api/v1/tours/:id", getTourById);
-// app.delete("/api/v1/tours/:id", deleteTour);
-// app.patch("/api/v1/tours/:id", updateTour);
+// ------------------------------------------------------
+
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+
+const updateAllUsers = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+// 3) Tours ROUTES
 
 app.route("/api/v1/tours").get(getAllTours).post(createNewTours);
 
@@ -106,6 +144,16 @@ app
   .delete(deleteTour)
   .patch(updateTour);
 
+// 4) User Routes
+app.route("/api/v1/users").get(getAllUsers).post(updateAllUsers);
+
+app
+  .route("/api/v1/users/:id")
+  .get(getUser)
+  .delete(deleteUser)
+  .patch(updateUser);
+
+// 4) START THE SERVER
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
 });

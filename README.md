@@ -399,5 +399,46 @@ const getAllTours = (req, res) => {
   });
 };
 ```
+
 <img width="1440" alt="Screenshot 2023-03-05 at 11 38 01 AM" src="https://user-images.githubusercontent.com/47382260/222944573-c8b09670-f83a-4c1d-9534-156b5536e87b.png">
 
+### Third Party Middleware
+
+morgan - help us to see request data into out console.
+
+```
+const morgan = require("morgan");
+..
+app.use(morgan("dev"));
+
+```
+
+OUTPUT In terminal
+
+```
+GET /api/v1/tours 200 3.505 ms - 8807
+```
+
+### Defining the User Routes
+
+```
+app.route("/api/v1/users").get(getAllUsers).post(updateAllUsers);
+
+app
+  .route("/api/v1/users/:id")
+  .get(getUser)
+  .delete(deleteUser)
+  .patch(updateUser);
+
+```
+
+For now we just define a dummy function which is not defined at the moment for all the Routes
+
+```
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+```
